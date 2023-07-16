@@ -1,0 +1,16 @@
+{
+  "name": "gh-stars",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn esbuild index.js --bundle --outfile=bundle.js && yarn insert-token",
+    "dev": "nodemon --ignore bundle.js --exec \"yarn build\"",
+    "insert-token": "sed -i \"s/<TOKEN_HERE>/$(cat .token)/g\" bundle.js"
+  },
+  "dependencies": {
+    "esbuild": "^0.18.13",
+    "jquery": "^3.7.0",
+    "nodemon": "^3.0.1"
+  }
+}
