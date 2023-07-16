@@ -1,3 +1,5 @@
+import { ATTR_MARKER } from "./content";
+
 let popup;
 export const show_popup = ({ loading, repo_info, el }) => {
     if (!popup) {
@@ -25,7 +27,11 @@ export const show_popup = ({ loading, repo_info, el }) => {
         popup.title.innerHTML = `Loading...`;
         popup.descr.innerHTML = ``;
     } else if (repo_info) {
-        popup.title.innerHTML = `[${repo_info.stargazers_count} &#x1F44D;] <a href=${repo_info.owner.url}>${repo_info.owner.login}</a>/<a href=${repo_info.html_url}>${repo_info.name}</a>`
+        popup.title.innerHTML = `
+        [${repo_info.stargazers_count} &#x1F44D;] 
+            <a href=${repo_info.owner.html_url} ${ATTR_MARKER}=1>${repo_info.owner.login}</a>
+            /
+            <a href=${repo_info.html_url} ${ATTR_MARKER}=1>${repo_info.name}</a>`
         if (repo_info.description)
             popup.descr.innerHTML = `${repo_info.description}`;
         else

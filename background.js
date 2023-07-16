@@ -15,7 +15,6 @@ const storage = {};
 browser.storage.local.get()
     .then(data => {
         Object.assign(storage, (data));
-        console.log(`storage`, storage)
     });
 console.log(browser.storage);
 const save_storage = () => {

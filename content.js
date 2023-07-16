@@ -2,7 +2,7 @@ import browser from 'webextension-polyfill';
 import { hide_popup, show_popup } from "./popup";
 
 
-const ATTR_MARKER = 'kek_gottem';
+export const ATTR_MARKER = 'kek_gottem';
 
 const get_info = msg => {
     return browser.runtime.sendMessage(msg);
@@ -10,15 +10,17 @@ const get_info = msg => {
 
 async function update() {
     for (const el of document.querySelectorAll(`a:not([${ATTR_MARKER}])`)) {
-        const match = /github.com\/([\w_\.-]+)\/([\w\._-]+)/.exec(el.href);
+        const match = /(?:\/\/|^)github.com\/([\w_\.-]+)\/([\w\._-]+)\/?$/.exec(el.href);
         if (match) {
             const [, user, repo] = match;
             el.setAttribute(ATTR_MARKER, 'found');
+            if (user === 'users') return;
             try {
                 let cancel_id;
-                el.addEventListener('mouseover', async () => {
+                el.addEventListener('mouseover', async (e) => {
                     clearTimeout(cancel_id);
                     cancel_id = null;
+                    if (e.target !== el) return; // user link child anchor
                     show_popup({
                         loading: true,
                         el,
