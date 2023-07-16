@@ -4,9 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "yarn esbuild index.js --bundle --outfile=bundle.js && yarn insert-token",
-    "dev": "nodemon --ignore bundle.js --exec \"yarn build\"",
-    "insert-token": "sed -i \"s/<TOKEN_HERE>/$(cat .token)/g\" bundle.js"
+    "build:core": "yarn esbuild index.js --bundle --outfile=out/bundle.js && yarn insert-token",
+    "build:bg": "yarn esbuild background.js --bundle --outfile=out/background.js",
+    "build": "yarn build:core && yarn build:bg",
+    "dev": "nodemon --ignore 'out/**.js' --exec \"yarn build\"",
+    "insert-token": "sed -i \"s/<TOKEN_HERE>/$(cat .token)/g\" ./out/bundle.js"
   },
   "dependencies": {
     "esbuild": "^0.18.13",
