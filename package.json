@@ -4,15 +4,16 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build:core": "yarn esbuild index.js --bundle --outfile=out/bundle.js && yarn insert-token",
-    "build:bg": "yarn esbuild background.js --bundle --outfile=out/background.js",
+    "build:core": "yarn esbuild content.js --bundle --outfile=out/content.js",
+    "build:bg": "yarn esbuild background.js --bundle --outfile=out/background.js && yarn insert-token",
     "build": "yarn build:core && yarn build:bg",
     "dev": "nodemon --ignore 'out/**.js' --exec \"yarn build\"",
-    "insert-token": "sed -i \"s/<TOKEN_HERE>/$(cat .token)/g\" ./out/bundle.js"
+    "insert-token": "sed -i \"s/<TOKEN_HERE>/$(cat .token)/g\" ./out/background.js"
   },
   "dependencies": {
     "esbuild": "^0.18.13",
     "jquery": "^3.7.0",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "webextension-polyfill": "^0.10.0"
   }
 }

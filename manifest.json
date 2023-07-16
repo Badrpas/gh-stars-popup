@@ -1,5 +1,21 @@
 {
     "manifest_version": 3,
     "name": "GH Links",
-    "version": "1.0.1"
+    "version": "1.0.1",
+    "background": {
+        "service_worker": "out/background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "./out/content.js"
+            ]
+        }
+    ],
+    "permissions": [
+        "storage"
+    ]
 }
